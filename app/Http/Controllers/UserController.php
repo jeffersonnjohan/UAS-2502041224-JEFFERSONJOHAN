@@ -135,7 +135,10 @@ class UserController extends Controller
         $avatar = Avatar::find($id);
 
         $user->coin -= 100;
-        Storage::delete($user->image);
+        if(substr($user->image, 4) == 'user'){
+            // Jika gambar diupload manual, maka hapus. Jika tidak, jangan hapu
+            Storage::delete($user->image);
+        }
         $user->image = $avatar->image;
 
         $user->update();
