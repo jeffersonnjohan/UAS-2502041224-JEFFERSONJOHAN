@@ -24,10 +24,11 @@ Route::get('/logout', [UserController::class, 'logout'])->middleware('auth');
 
 // Home
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth');
-Route::get('/user/{id}', [HomeController::class, 'like'])->middleware('auth');
 
 // Liked
 Route::get('/liked', [UserController::class, 'liked'])->middleware('auth');
+Route::get('/user/{id}', [HomeController::class, 'like'])->middleware('auth');
+Route::get('/dislike/{id}', [HomeController::class, 'dislike'])->middleware('auth');
 
 // Profile
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth');

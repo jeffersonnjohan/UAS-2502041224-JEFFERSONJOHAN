@@ -19,18 +19,30 @@ class HomeController extends Controller
         return view('authentication.login');
     }
 
-    public function index(){
+    public function index(Request $request){
         $user = User::find(Auth::user()->id);
         
         if(count($user->likes) > 0){
             $excludedIds = $user->likes->pluck('receiver_id');
             $users = User::whereNot('id', Auth::user()->id)
-            ->whereNotIn('id', $excludedIds)->where('is_visible', 1)->get();
+            ->whereNotIn('id', $excludedIds)->where('is_visible', 1);
         } else{
-            $users = User::whereNot('id', Auth::user()->id)->where('is_visible', 1)->get();
+            $users = User::whereNot('id', Auth::user()->id)->where('is_visible', 1);
+        }
+
+        if($request->keyword){
+            $users->where('name', 'LIKE', '%'. $request->keyword.'%');
+        }
+        if($request->gender){
+            if($request->gender == 'male'){
+                $users->where('is_male', '1');
+            } else if($request->gender == 'female'){
+                $users->where('is_male', '0');
+            }
         }
         return view('home', [
-            'users' => $users,
+            'users' => $users->get(),
+            'request' => $request
         ]);
     }
 
@@ -40,6 +52,15 @@ class HomeController extends Controller
             'receiver_id' => $id
         ]);
         return redirect('/home');
+    }
+
+    public function dislike($id){
+        $likes = Like::where('user_id', Auth::user()->id)->where('receiver_id', $id)->get();
+
+        foreach($likes as $like){
+            $like->delete();
+        }
+        return redirect('/liked');
     }
 
 
