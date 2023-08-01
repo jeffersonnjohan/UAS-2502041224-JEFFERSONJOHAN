@@ -116,7 +116,14 @@ class UserController extends Controller
 
         $user = User::find(Auth::user()->id);
         $user->is_visible = $visibility;
-        $user->coin -= 1000;
+
+        if($visibility == '1'){
+            // Mau munculin
+            $user->coin -= 5;
+        } else{
+            // Mau hilangin
+            $user->coin -= 50;
+        }
         $user->update();
 
         return redirect('/profile');

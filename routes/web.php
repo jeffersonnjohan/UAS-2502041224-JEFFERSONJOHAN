@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::redirect('/', 'login');
+
 // Authentication
 Route::get('/login', [UserController::class, 'login'])->middleware('guest');
 Route::post('/login', [UserController::class, 'check_credential'])->middleware('guest');
