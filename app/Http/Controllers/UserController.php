@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Avatar;
 use App\Models\User;
 use App\Models\Hobby;
+use App\Models\Avatar;
 use App\Models\HobbyUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -134,6 +135,7 @@ class UserController extends Controller
         $avatar = Avatar::find($id);
 
         $user->coin -= 100;
+        Storage::delete($user->image);
         $user->image = $avatar->image;
 
         $user->update();
