@@ -92,7 +92,31 @@ class UserController extends Controller
         $user = User::find(Auth::user()->id);
         $likedId = $user->likes->pluck('receiver_id');
         return view('liked', [
-            'users' => User::whereIn('id', $likedId)->get(),
+            'users' => User::whereIn('id', $likedId)->where('is_visible', 1)->get(),
         ]);
+    }
+
+    public function profile(){
+        return view('profile', [
+            'user' => Auth::user()
+        ]);
+    }
+
+    public function addcoin(Request $request){
+        $user = User::find(Auth::user()->id);
+        $user->coin += 100;
+        $user->update();
+        return redirect('/profile');
+    }
+
+    public function changeVisibility(Request $request){
+        $visibility = $request->visibility;
+
+        $user = User::find(Auth::user()->id);
+        $user->is_visible = $visibility;
+        $user->coin -= 1000;
+        $user->update();
+
+        return redirect('/profile');
     }
 }

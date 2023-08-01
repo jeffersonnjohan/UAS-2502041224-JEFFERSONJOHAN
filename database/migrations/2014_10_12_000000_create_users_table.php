@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->integer('coin')->default(0);
             $table->boolean('is_male');
+            $table->boolean('is_visible')->default(true);
             $table->timestamps();
         });
     }

@@ -31,3 +31,5 @@ Route::get('/liked', [UserController::class, 'liked'])->middleware('auth');
 
 // Profile
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth');
+Route::post('/profile/addcoin', [UserController::class, 'addcoin'])->middleware('auth');
+Route::post('/profile/changeVisibility', [UserController::class, 'changeVisibility'])->middleware('auth');

@@ -25,9 +25,9 @@ class HomeController extends Controller
         if(count($user->likes) > 0){
             $excludedIds = $user->likes->pluck('receiver_id');
             $users = User::whereNot('id', Auth::user()->id)
-            ->whereNotIn('id', $excludedIds)->get();
+            ->whereNotIn('id', $excludedIds)->where('is_visible', 1)->get();
         } else{
-            $users = User::whereNot('id', Auth::user()->id)->get();
+            $users = User::whereNot('id', Auth::user()->id)->where('is_visible', 1)->get();
         }
         return view('home', [
             'users' => $users,
