@@ -34,3 +34,4 @@ Route::get('/dislike/{id}', [HomeController::class, 'dislike'])->middleware('aut
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth');
 Route::post('/profile/addcoin', [UserController::class, 'addcoin'])->middleware('auth');
 Route::post('/profile/changeVisibility', [UserController::class, 'changeVisibility'])->middleware('auth');
+Route::get('/avatar/{id}', [UserController::class, 'buyAvatar'])->middleware('auth');

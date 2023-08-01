@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Avatar;
 use App\Models\Hobby;
 use Illuminate\Database\Seeder;
 
@@ -33,6 +34,26 @@ class DatabaseSeeder extends Seeder
         ]);
         Hobby::create([
             'name' => 'Sing',
+        ]);
+
+        Avatar::create([
+            'name' => 'Layla',
+            'image' => 'avatar/stiker1.png'
+        ]);
+
+        Avatar::create([
+            'name' => 'Tesla',
+            'image' => 'avatar/stiker2.png'
+        ]);
+
+        Avatar::create([
+            'name' => 'Hyundai',
+            'image' => 'avatar/sticker3.png'
+        ]);
+
+        Avatar::create([
+            'name' => 'Motorola',
+            'image' => 'avatar/stiker4.png'
         ]);
     }
 }

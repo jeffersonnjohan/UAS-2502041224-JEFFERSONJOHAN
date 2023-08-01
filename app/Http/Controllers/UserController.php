@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Avatar;
 use App\Models\User;
 use App\Models\Hobby;
 use App\Models\HobbyUser;
@@ -98,7 +99,8 @@ class UserController extends Controller
 
     public function profile(){
         return view('profile', [
-            'user' => Auth::user()
+            'user' => Auth::user(),
+            'avatars' => Avatar::all()
         ]);
     }
 
@@ -117,6 +119,17 @@ class UserController extends Controller
         $user->coin -= 1000;
         $user->update();
 
+        return redirect('/profile');
+    }
+    
+    public function buyAvatar($id){
+        $user = User::find(Auth::user()->id);
+        $avatar = Avatar::find($id);
+
+        $user->coin -= 100;
+        $user->image = $avatar->image;
+
+        $user->update();
         return redirect('/profile');
     }
 }
